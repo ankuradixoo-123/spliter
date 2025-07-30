@@ -11,7 +11,6 @@ app.use(cors());
 
 app.use(express.json());
 
-
 app.use("/api/user",userRouters);
 
 const PORT=dotenv.PORT||5000;

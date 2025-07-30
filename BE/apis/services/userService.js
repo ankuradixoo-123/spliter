@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const {PrismaClient}=require('@prisma/client');
+const jwt = require("jsonwebtoken");
 const prisma=new PrismaClient();
 
 const registerUser=async({name,email,password})=>{
@@ -24,4 +25,31 @@ const registerUser=async({name,email,password})=>{
   return newUser;
 }
 
-module.exports={registerUser}
+const loginUser=async({email,password})=>{
+
+  const user=await prisma.user.findUnique({
+    where : {email}
+  });
+
+  if(!user){
+       throw new Error ('user not exists!')
+  }
+
+  const isPasswordValid = await bcrypt.compare(password,user.password);
+
+   if (!isPasswordValid) {
+    throw new Error('Incorrect password!');
+  }
+
+  
+  const token=jwt.sign(
+    {userId:user.id,email:user.email},
+     process.env.JWT,
+     {expiresIn:'5d'}
+  );
+
+  return {token,user};
+
+};
+
+module.exports={registerUser,loginUser}
