@@ -1,4 +1,3 @@
-const { Prisma } = require("@prisma/client");
 const userService=require("../services/userService");
 
 const registerUser=async(req,res)=>{
@@ -28,7 +27,7 @@ const loginUser=async(req,res)=>{
 
     const {email,password}=req.body;
 
-    const user=await userService.loginUser({email,password});
+    const {user,token}=await userService.loginUser({email,password});
 
     res.status(200).json({
       success:true,
@@ -38,6 +37,7 @@ const loginUser=async(req,res)=>{
         id:user.id,
         email:user.email,
       },
+      token
     });
   }
   catch(error){
