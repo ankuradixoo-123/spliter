@@ -1,0 +1,73 @@
+user apis 
+
+register 
+login
+authMiddleware
+
+Groups
+
+create a group
+
+
+
+
+
+
+
+
+
+
+
+for clearity 
+CREATE TABLE users (
+  id UUID PRIMARY KEY,
+  name VARCHAR(100),
+  email VARCHAR(100) UNIQUE,
+  password TEXT
+);
+2. groups table
+sql
+Copy
+Edit
+CREATE TABLE groups (
+  id UUID PRIMARY KEY,
+  name VARCHAR(100),
+  created_by UUID REFERENCES users(id)
+);
+3. group_members table (Join Table)
+sql
+Copy
+Edit
+CREATE TABLE group_members (
+  id UUID PRIMARY KEY,
+  user_id UUID REFERENCES users(id),
+  group_id UUID REFERENCES groups(id),
+  role VARCHAR(20) DEFAULT 'member',
+  joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE (user_id, group_id)
+);
+You can make role an ENUM if your DB supports it (like PostgreSQL).
+
+✅ Example Use Cases
+➕ Add a user to a group:
+sql
+Copy
+Edit
+INSERT INTO group_members (id, user_id, group_id, role)
+VALUES (gen_random_uuid(), 'user-id', 'group-id', 'member');
+📥 Get all groups a user is in:
+sql
+Copy
+Edit
+SELECT g.*
+FROM groups g
+JOIN group_members gm ON g.id = gm.group_id
+WHERE gm.user_id = 'user-id';
+📥 Get all users in a group:
+sql
+Copy
+Edit
+SELECT u.*
+FROM users u
+JOIN group_members gm ON u.id = gm.user_id
+WHERE gm.group_id = 'group-i

@@ -12,7 +12,32 @@ model User {
   email    String         @unique
   name     String?
   password String?
- // groups   GroupMember[]
+  groups   GroupMember[]      // form a groups whom user is in
 //  createdGroups Group[]
 //  expenses Expense[]      @relation("UserExpenses")
+}
+
+model Group{
+id Int @id @default(autoincrement())
+name String
+
+createdBy String
+//createdBy   User          @relation("CreatedGroups", fields:[createdById], references: [id])
+members GroupMember[] // users in this group
+}
+
+model GroupMember{
+  id Int @id @default(autoincrement())
+  
+  userId Int
+  groupId Int
+ 
+  role String @default("member")
+  joinedAt DateTime @default(now())
+
+  //Relations
+  user User @relation(fields: [userId], references: [id])
+  group Group @relation(fields: [groupId], references: [id])
+
+  @@unique([userId, groupId])
 }
