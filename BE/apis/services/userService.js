@@ -44,7 +44,7 @@ const loginUser=async({email,password})=>{
   
   const token=jwt.sign(
     {userId:user.id,email:user.email},
-     process.env.JWT,
+     process.env.jwt,
      {expiresIn:'5d'}
   );
 

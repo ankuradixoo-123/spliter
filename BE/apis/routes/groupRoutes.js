@@ -1,9 +1,9 @@
-const groupService = require("../services/groupService")
 
-const groupControllers=async(req,res)=>{
+const express=require("express");
+const router=express.Router();
+const groupControllers=require("../Controllers/groupController");
+const authMiddleware=require('../middlewares/authMiddleware')
 
-}
-
-module.exports={
-  groupControllers
-}
+router.post('/newGroup',authMiddleware.authMiddleware,groupControllers.groupControllers);
+router.post('/addMembers',groupControllers.addMembersController);
+module.exports=router;

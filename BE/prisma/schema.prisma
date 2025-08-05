@@ -21,7 +21,7 @@ model Group{
 id Int @id @default(autoincrement())
 name String
 
-createdBy String
+//createdBy String
 //createdBy   User          @relation("CreatedGroups", fields:[createdById], references: [id])
 members GroupMember[] // users in this group
 }
