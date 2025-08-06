@@ -2,12 +2,16 @@ user apis
 
 register 
 login
+
+auth 
 authMiddleware
 
 Groups
 
 create a group
-
+add member to group
+get all member from group
+get all groups 
 
 
 
@@ -42,6 +46,10 @@ CREATE TABLE group_members (
   id UUID PRIMARY KEY,
   user_id UUID REFERENCES users(id),
   group_id UUID REFERENCES groups(id),
+
+ // user User @relation(fields: [userId], references: [id])
+//group Group @relation(fields: [groupId], references: [id])
+
   role VARCHAR(20) DEFAULT 'member',
   joined_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   UNIQUE (user_id, group_id)

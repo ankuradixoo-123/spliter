@@ -21,11 +21,10 @@ const createGroup = async ({ name }) => {
 
 const addMembers=async({groupId,userIds})=>{
 
-  // check for user and group json input from client
+// check for user and group json input from client
 if(!groupId||userIds.length===0){
 throw new Error ('groupId & userIds are required!');
 }
-
 
 // check the group is unique or not 
 const group=await prisma.group.findUnique({
@@ -64,7 +63,40 @@ const addMembers=await prisma.groupMember.createMany({
 
 return {addedCount : addMembers.count};
 };
+
+const getAllMembers=async(groupId)=>{
+
+  const checkGroupId=await prisma.group.findUnique({
+    where:{ id : groupId}
+  })
+
+  if(!checkGroupId){
+    throw new Error("group not exists!");
+  }
+
+const allUsers=await prisma.groupMember.findMany({
+  where : {groupId}
+})
+
+return allUsers;
+
+};
+
+const getAllGroups=async({name})=>{
+
+  const groupData=await prisma.group.findMany({
+    where : {name}
+  })
+
+  if(!groupData){
+    throw new Error("groups need to be crated!");
+  }
+
+  return groupData;
+};
 module.exports = {
-  createGroup
-  ,addMembers
+  createGroup,
+  addMembers,
+  getAllMembers,
+  getAllGroups
 };

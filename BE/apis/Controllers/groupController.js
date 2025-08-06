@@ -1,6 +1,7 @@
+const { request } = require("express");
 const groupService = require("../services/groupService")
 
-const groupControllers=async(req,res)=>{
+const createGroupController=async(req,res)=>{
 
   const {name}=req.body;
   
@@ -32,6 +33,7 @@ const addMembersController=async(req,res)=>{
       success:true,
       message:`${result.addedCount} members added sucessfully`
     })
+
   }
   catch(error){
       res.status(400).json({success:false,message:error.message});
@@ -39,7 +41,43 @@ const addMembersController=async(req,res)=>{
  
 };
 
+const getAllMembersPerGroupController=async(req,res)=>{
+
+  const groupId = req.params.groupId;
+
+   const userData=await groupService.getAllMembers(Number(groupId));
+
+  try{
+
+    res.status(200).json({
+      success:true,
+      allUsers:userData
+    })
+  }
+  catch(error){
+    res.status(400).json({success:false,message:error.message});
+  }
+};
+
+const getAllGroupsController=async(req,res)=>{
+
+  const {name}=req.query;
+
+  const allGroupData=await groupService.getAllGroups({name});
+
+  try{
+    res.status(200).json({
+      success:true,
+      allGroData:allGroupData
+    })
+  }
+  catch(error){
+    return res.status(400).json({success:false,message:error.message});
+  }
+};
 module.exports={
-  groupControllers,
-  addMembersController
+  createGroupController,
+  addMembersController,
+  getAllMembersPerGroupController,
+  getAllGroupsController
 }
