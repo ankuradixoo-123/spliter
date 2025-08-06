@@ -22,6 +22,28 @@ catch(error){
 
 }
 
+const inviteUserController=async(req,res)=>{
+
+  const {name,email}=req.body;
+
+  try{
+  
+    const invitedMember=await groupService.inviteUser({name,email});
+
+    res.status(200).json({
+      success:true,
+      message:'person is successfully invited!',
+      invitedMember:{
+        name:invitedMember.name,
+        email:invitedMember.email
+      }
+    })
+  
+  }
+  catch(error){
+     return res.status(400).json({success:false,message:error.message});
+  }
+}
 const addMembersController=async(req,res)=>{
 
   const {groupId,userIds}=req.body;
@@ -79,5 +101,6 @@ module.exports={
   createGroupController,
   addMembersController,
   getAllMembersPerGroupController,
-  getAllGroupsController
+  getAllGroupsController,
+  inviteUserController
 }

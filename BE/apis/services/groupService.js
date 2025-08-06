@@ -64,6 +64,22 @@ const addMembers=await prisma.groupMember.createMany({
 return {addedCount : addMembers.count};
 };
 
+const inviteUser=async({name,email})=>{
+
+  const userData=await prisma.user.findMany({
+    where: {
+       name,
+       email
+    }
+  })
+
+  if(!name || !email){
+    throw new Error(`name & email are the required fields!`);
+  }
+
+
+};
+
 const getAllMembers=async(groupId)=>{
 
   const checkGroupId=await prisma.group.findUnique({
@@ -98,5 +114,6 @@ module.exports = {
   createGroup,
   addMembers,
   getAllMembers,
-  getAllGroups
+  getAllGroups,
+  inviteUser
 };
