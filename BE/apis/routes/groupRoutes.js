@@ -5,7 +5,8 @@ const groupControllers=require("../Controllers/groupController");
 const authMiddleware=require('../middlewares/authMiddleware')
 
 router.post('/newGroup',authMiddleware.authMiddleware,groupControllers.createGroupController);
-router.post('/addMembers',groupControllers.addMembersController);
-router.get("/getAllMembers/:groupId",groupControllers.getAllMembersPerGroupController);
-router.get("/getAllGroups",groupControllers.getAllGroupsController)
+router.post('/addMembers',authMiddleware.authMiddleware,groupControllers.addMembersController);
+router.get("/getAllMembers/:groupId",authMiddleware.authMiddleware,groupControllers.getAllMembersPerGroupController);
+router.get("/getAllGroups",authMiddleware.authMiddleware,groupControllers.getAllGroupsController);
+
 module.exports=router;
