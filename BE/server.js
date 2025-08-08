@@ -4,7 +4,8 @@ const express=require("express");
 const cors=require("cors");
 const userRouters = require("./apis/routes/userRoutes");
 const groupRoutes= require("./apis/routes/groupRoutes")
-const expensesRoutes=require("./apis/routes/expenseRoutes")
+const expensesRoutes=require("./apis/routes/expenseRoutes");
+const userDetailsRoutes=require('./apis/routes/userDetailsRoutes');
 const app=express();
 
 app.use(cors());
@@ -13,7 +14,8 @@ app.use(express.json());
 
 app.use("/api/user",userRouters);
 app.use("/api/group",groupRoutes);
-app.use("/api/expenses",expensesRoutes)
+app.use("/api/expenses",expensesRoutes);
+app.use("/api/:userId",userDetailsRoutes);
 const PORT=dotenv.PORT||5000;
 
 app.listen(PORT,()=>{

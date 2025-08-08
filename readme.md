@@ -1,19 +1,88 @@
 user apis 
 
-register 
-login
+register      ✅
+login          ✅
+node mailer setup 
+foget password
+invite user via email  / number
+logout 
 
 auth 
-authMiddleware
+authMiddleware         ✅
 
 Groups
 
-create a group
-add member to group via existing members
-invite members to group via email
-get all member from group
-get all groups 
-delete a group member from the group 
+create a group           ✅
+add member to group via existing members       ✅
+get all member from group ✅
+get all groups ✅
+delete a group member from the group ( only group admin can do that)
+
+
+friend check 
+/friendCheck ( if both on the same group in any of the group then friends)
+
+
+user details 
+
+/postUserDetails 
+/UpdatrUser
+/getAllUserDetailsById
+
+Visit 
+
+/recentVisit
+
+expenses
+
+/addExpenses   ( to every user per / with all the member or with selective member)
+/sattleUp
+/delete expenses
+/list all expenses for perticular group
+/list all expenses for all the groups (limit on the expenses)
+/edit expenses
+
+
+payment
+/scanPay 
+
+
+// regex for every service 
+// for auth check : eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjQsImVtYWlsIjoiYW5AZ21haWwuY29tIiwiaWF0IjoxNzU0NjQyNTQ5LCJleHAiOjE3NTUwNzQ1NDl9.t0vjlz_Jg8BKu7GkiiuGTQusnl4meXTwwIMxTRo21ME
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

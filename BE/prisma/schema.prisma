@@ -13,6 +13,7 @@ model User {
   name     String?
   password String?
   groups   GroupMember[]      // form a groups whom user is in
+  userDetails userDetails?
 //  createdGroups Group[]
 //  expenses Expense[]      @relation("UserExpenses")
 }
@@ -40,4 +41,16 @@ model GroupMember{
   group Group @relation(fields: [groupId], references: [id])
 
   @@unique([userId, groupId])
+}
+
+model userDetails {
+  id                 Int     @id @default(autoincrement())
+  userId             Int     @unique
+  age                Int?
+  phone              String?
+  image              String?  // or String? if storing image URL
+  country            String?
+  subscriptionStatus Boolean? @default(false)
+
+  user User @relation(fields: [userId], references: [id])
 }
