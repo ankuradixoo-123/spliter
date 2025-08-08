@@ -25,7 +25,7 @@ friend check
 
 user details 
 
-/postUserDetails 
+/postUserDetails ✅
 /UpdatrUser
 /getAllUserDetailsById
 
