@@ -9,10 +9,11 @@ authMiddleware
 Groups
 
 create a group
-add member to group
+add member to group via existing members
+invite members to group via email
 get all member from group
 get all groups 
-
+delete a group member from the group 
 
 
 
@@ -79,3 +80,7 @@ SELECT u.*
 FROM users u
 JOIN group_members gm ON u.id = gm.user_id
 WHERE gm.group_id = 'group-i
+s
+
+conversation for refrerance : https://chatgpt.com/share/68946efa-4308-800a-8782-ef5e9f11746e
+
